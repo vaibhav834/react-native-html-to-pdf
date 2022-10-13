@@ -50,7 +50,7 @@ public class RNHTMLtoPDFModule extends ReactContextBaseJavaModule {
         promise.reject(new Exception("RNHTMLtoPDF error: Invalid htmlString parameter."));
         return;
       }
-
+        
       String fileName;
       if (options.hasKey(FILE_NAME)) {
         fileName = options.getString(FILE_NAME);
@@ -64,9 +64,7 @@ public class RNHTMLtoPDFModule extends ReactContextBaseJavaModule {
 
       if (options.hasKey(DIRECTORY)) {
         String state = Environment.getExternalStorageState();
-        File path = (Environment.MEDIA_MOUNTED.equals(state)) ?
-          new File(mReactContext.getExternalFilesDir(null), options.getString(DIRECTORY)) :
-          new File(mReactContext.getFilesDir(), options.getString(DIRECTORY));
+        File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), options.getString(DIRECTORY));
 
         if (!path.exists()) {
           if (!path.mkdirs()) {
